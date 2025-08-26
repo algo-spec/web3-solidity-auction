@@ -8,11 +8,6 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
 contract NftAuction is Initializable, UUPSUpgradeable {
-    /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
-        _disableInitializers();
-    }
-
     // 拍卖结构体
     struct Auction {
         address seller; // 拍卖人地址
@@ -232,11 +227,10 @@ contract NftAuction is Initializable, UUPSUpgradeable {
 
     /**
      * @dev 重写UUPSUpgradeable的_authorizeUpgrade方法
-     * @param newImplementation 新合约地址
      */
-    function _authorizeUpgrade(
-        address newImplementation
-    ) internal virtual override {}
+    function _authorizeUpgrade(address) internal virtual override {
+        require(msg.sender == admin, "Only admin can upgrade the contract");
+    }
 
     // ERC721接收函数
     function onERC721Received(

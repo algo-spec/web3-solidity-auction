@@ -232,11 +232,10 @@ contract NftAuctionV2 is Initializable, UUPSUpgradeable {
 
     /**
      * @dev 重写UUPSUpgradeable的_authorizeUpgrade方法
-     * @param newImplementation 新合约地址
      */
-    function _authorizeUpgrade(
-        address newImplementation
-    ) internal virtual override {}
+    function _authorizeUpgrade(address) internal virtual override {
+        require(msg.sender == admin, "Only admin");
+    }
 
     // ERC721接收函数
     function onERC721Received(

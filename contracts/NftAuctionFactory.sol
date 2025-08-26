@@ -7,11 +7,6 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 contract NftAuctionFactory is Initializable, UUPSUpgradeable {
-    /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
-        _disableInitializers();
-    }
-
     NftAuction[] public auctions; // 所有创建的拍卖合约
 
     address public admin; // 管理员
